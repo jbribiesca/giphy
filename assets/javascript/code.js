@@ -1,33 +1,34 @@
 $(document).ready(function () {
     var topics = ["legos", "batman"];
 
-
     function createBtns() {
-        $(".container").empty();
+        $("#btns").empty();
 
         for (var i = 0; i < topics.length; i++) {
             var gifButton = $("<button>");
 
             gifButton.attr("ID", "gifArrayBtns");
+            gifButton.attr("class", "btn btn-primary")
             gifButton.attr("data-button", topics[i]);
             gifButton.text(topics[i]);
 
-            $(".container").append(gifButton);
+            $("#btns").append(gifButton);
         }
     }
     createBtns();
-    
-    $("#add-keyword").click(function(){
+
+    $("#add-keyword").click(function () {
         var keywordPush = $("#keyword-term").val();
         topics.push(keywordPush)
         createBtns();
     })
 
-    $(document).on("click", "#gifArrayBtns",function () {
-
+    $(document).on("click", "#gifArrayBtns", function () {
         var searchQuery = $(this).attr("data-button");
         var apiKEY = "api_key=0hG8MRmYR9lPS2VVyhHFQza79r0aGbVB";
         var queryURL = "https://api.giphy.com/v1/gifs/search?" + apiKEY + "&q=" + searchQuery + "&limit=10";
+
+        $("#gif-body").empty();
 
         $.ajax({
             url: queryURL,
@@ -40,8 +41,12 @@ $(document).ready(function () {
 
             for (var i = 0; i < gifArray.length; i++) {
                 var gifDiv = $("<div>");
+                gifDiv.attr("class", "card col-sm-4")
+                var gifDivBody = $("<div>")
+                gifDivBody.attr("class", "card-body")
                 var gifRating = gifArray[i].rating;
-                var rating = $("<p>").text(gifRating);
+                var rating = $("<h5>").text("Rating: " + gifRating);
+                rating.attr("class", "card-title")
                 var gifAnimate = gifArray[i].images.fixed_height.url
                 var gifStill = gifArray[i].images.fixed_height_still.url
                 var gifImage = $("<img>");
@@ -50,12 +55,13 @@ $(document).ready(function () {
                 gifImage.attr("data-still", gifStill)
                 gifImage.attr("data-animate", gifAnimate)
                 gifImage.attr("data-state", "still")
-                gifImage.attr("class", "gif")
+                gifImage.attr("class", "card-img-top gif")
 
-                gifDiv.append(gifImage);
-                gifDiv.append(rating);
+                gifDiv.append(gifImage)
+                gifDiv.append(gifDivBody)
+                gifDivBody.append(rating);
 
-                $(".card").prepend(gifDiv);
+                $("#gif-body").append(gifDiv);
             }
         });
     })
