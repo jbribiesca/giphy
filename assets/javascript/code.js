@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    var topics = ["Legos", "Batman", "Superman", "Lego Movie 2"];
+    var topics = ["Batman", "Superman", "Captain America", "Robin", "Spiderman", "The Hulk", "Wonder Woman", "Iron Man", "Thor"];
 
     function createBtns() {
         $("#btns").empty();
@@ -15,7 +15,7 @@ $(document).ready(function () {
             $("#btns").append(gifButton);
         }
     }
-    
+
     createBtns();
 
     $("#add-keyword").click(function () {
@@ -78,5 +78,4 @@ $(document).ready(function () {
             $(this).attr("data-state", "still")
         }
     })
-
 });
