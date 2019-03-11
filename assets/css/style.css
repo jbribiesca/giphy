@@ -13,5 +13,9 @@ h1 {
     background-blend-mode: lighten;
     color: blue;
 }
-
+.card-img-top {
+    width: 100%;
+    height: 20vh;
+    object-fit: cover;
+    }
   

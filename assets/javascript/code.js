@@ -42,12 +42,16 @@ $(document).ready(function () {
 
             for (var i = 0; i < gifArray.length; i++) {
                 var gifDiv = $("<div>");
-                gifDiv.attr("class", "card h-200 btn-space")
+                gifDiv.attr("class", "card btn-space")
+
                 var gifDivBody = $("<div>")
                 gifDivBody.attr("class", "card-body")
                 var gifRating = gifArray[i].rating;
-                var rating = $("<h5>").text("Rating: " + gifRating.toUpperCase());
-                rating.attr("class", "card-title")
+                var gifTitle = gifArray[i].title;
+                var title = $("<strong>").text(gifTitle.toUpperCase());
+                title.attr("class", "card-title")
+                var rating = $("<p>").text("Rating: " + gifRating.toUpperCase());
+                rating.attr("class", "card-body")
                 var gifAnimate = gifArray[i].images.fixed_height.url
                 var gifStill = gifArray[i].images.fixed_height_still.url
                 var gifImage = $("<img>");
@@ -58,8 +62,9 @@ $(document).ready(function () {
                 gifImage.attr("data-state", "still")
                 gifImage.attr("class", "card-img-top gif")
 
-                gifDiv.append(gifImage)
-                gifDiv.append(gifDivBody)
+                gifDiv.append(gifImage);
+                gifDiv.append(gifDivBody);
+                gifDivBody.append(title);
                 gifDivBody.append(rating);
 
                 $("#gif-body").append(gifDiv);
