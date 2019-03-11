@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    var topics = ["legos", "batman"];
+    var topics = ["Legos", "Batman", "Superman", "Lego Movie 2"];
 
     function createBtns() {
         $("#btns").empty();
@@ -8,13 +8,14 @@ $(document).ready(function () {
             var gifButton = $("<button>");
 
             gifButton.attr("ID", "gifArrayBtns");
-            gifButton.attr("class", "btn btn-primary")
+            gifButton.attr("class", "btn btn-primary btn-space")
             gifButton.attr("data-button", topics[i]);
             gifButton.text(topics[i]);
 
             $("#btns").append(gifButton);
         }
     }
+    
     createBtns();
 
     $("#add-keyword").click(function () {
@@ -41,11 +42,11 @@ $(document).ready(function () {
 
             for (var i = 0; i < gifArray.length; i++) {
                 var gifDiv = $("<div>");
-                gifDiv.attr("class", "card col-sm-4")
+                gifDiv.attr("class", "card h-200 btn-space")
                 var gifDivBody = $("<div>")
                 gifDivBody.attr("class", "card-body")
                 var gifRating = gifArray[i].rating;
-                var rating = $("<h5>").text("Rating: " + gifRating);
+                var rating = $("<h5>").text("Rating: " + gifRating.toUpperCase());
                 rating.attr("class", "card-title")
                 var gifAnimate = gifArray[i].images.fixed_height.url
                 var gifStill = gifArray[i].images.fixed_height_still.url
