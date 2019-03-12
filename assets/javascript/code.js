@@ -30,8 +30,6 @@ $(document).ready(function () {
         var apiKEY = "api_key=0hG8MRmYR9lPS2VVyhHFQza79r0aGbVB";
         var queryURL = "https://api.giphy.com/v1/gifs/search?" + apiKEY + "&q=" + searchQuery + "&limit=10";
 
-        // $("#gif-body").empty();
-
         $.ajax({
             url: queryURL,
             method: "GET"
@@ -39,35 +37,42 @@ $(document).ready(function () {
 
             var gifArray = response.data;
 
-            console.log(gifArray)
-
             for (var i = 0; i < gifArray.length; i++) {
                 var gifDiv = $("<div>");
-                gifDiv.attr("class", "card btn-space")
+                gifDiv.addClass("card btn-space")
                 gifDiv.attr("style", "width: 20em")
                 var gifDivBody = $("<div>")
-                gifDivBody.attr("class", "card-body")
+                gifDivBody.addClass("card-body")
+
                 var gifRating = gifArray[i].rating;
                 var gifTitle = gifArray[i].title;
                 var gifTitleShort = gifTitle.slice(0, 15);
+
                 var title = $("<strong>").text(gifTitleShort.toUpperCase() + "...");
                 title.attr("class", "card-title")
                 var rating = $("<p>").text("Rating: " + gifRating.toUpperCase());
                 rating.attr("class", "card-body")
+
+                var originalDownload = gifArray[i].images.original.url;
+                var downloadBtn = $("<a>").text("Download");
+                downloadBtn.attr("href", originalDownload);
+                downloadBtn.attr("download", "giphy.gif");
+                downloadBtn.addClass("btn btn-primary");
+            
                 var gifAnimate = gifArray[i].images.fixed_height.url
                 var gifStill = gifArray[i].images.fixed_height_still.url
                 var gifImage = $("<img>");
-
                 gifImage.attr("src", gifStill);
                 gifImage.attr("data-still", gifStill)
                 gifImage.attr("data-animate", gifAnimate)
                 gifImage.attr("data-state", "still")
-                gifImage.attr("class", "card-img-top gif")
+                gifImage.addClass("card-img-top gif")
 
                 gifDiv.append(gifImage);
                 gifDiv.append(gifDivBody);
                 gifDivBody.append(title);
                 gifDivBody.append(rating);
+                gifDivBody.append(downloadBtn);
 
                 $("#gif-body").prepend(gifDiv);
             }
