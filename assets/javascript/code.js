@@ -57,7 +57,11 @@ $(document).ready(function () {
                 var downloadBtn = $("<a>").text("Download");
                 downloadBtn.attr("href", originalDownload);
                 downloadBtn.attr("download", "giphy.gif");
-                downloadBtn.addClass("btn btn-primary");
+                downloadBtn.addClass("btn btn-primary btn-space");
+
+                var heartSpan = $("<i>");
+                heartSpan.addClass("fa fa-heart");
+                heartSpan.attr("aria-hidden", "true")
             
                 var gifAnimate = gifArray[i].images.fixed_height.url
                 var gifStill = gifArray[i].images.fixed_height_still.url
@@ -73,6 +77,7 @@ $(document).ready(function () {
                 gifDivBody.append(title);
                 gifDivBody.append(rating);
                 gifDivBody.append(downloadBtn);
+                gifDivBody.append(heartSpan)
 
                 $("#gif-body").prepend(gifDiv);
             }
