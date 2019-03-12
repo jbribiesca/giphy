@@ -20,8 +20,9 @@ $(document).ready(function () {
 
     $("#add-keyword").click(function () {
         var keywordPush = $("#keyword-term").val();
-        topics.push(keywordPush)
+        topics.push(keywordPush);
         createBtns();
+        $("#keyword-term").val("");
     })
 
     $(document).on("click", "#gifArrayBtns", function () {
@@ -29,7 +30,7 @@ $(document).ready(function () {
         var apiKEY = "api_key=0hG8MRmYR9lPS2VVyhHFQza79r0aGbVB";
         var queryURL = "https://api.giphy.com/v1/gifs/search?" + apiKEY + "&q=" + searchQuery + "&limit=10";
 
-        $("#gif-body").empty();
+        // $("#gif-body").empty();
 
         $.ajax({
             url: queryURL,
@@ -43,12 +44,13 @@ $(document).ready(function () {
             for (var i = 0; i < gifArray.length; i++) {
                 var gifDiv = $("<div>");
                 gifDiv.attr("class", "card btn-space")
-
+                gifDiv.attr("style", "width: 20em")
                 var gifDivBody = $("<div>")
                 gifDivBody.attr("class", "card-body")
                 var gifRating = gifArray[i].rating;
                 var gifTitle = gifArray[i].title;
-                var title = $("<strong>").text(gifTitle.toUpperCase());
+                var gifTitleShort = gifTitle.slice(0, 15);
+                var title = $("<strong>").text(gifTitleShort.toUpperCase() + "...");
                 title.attr("class", "card-title")
                 var rating = $("<p>").text("Rating: " + gifRating.toUpperCase());
                 rating.attr("class", "card-body")
@@ -67,7 +69,7 @@ $(document).ready(function () {
                 gifDivBody.append(title);
                 gifDivBody.append(rating);
 
-                $("#gif-body").append(gifDiv);
+                $("#gif-body").prepend(gifDiv);
             }
         });
     })
