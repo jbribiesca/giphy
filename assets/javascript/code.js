@@ -29,6 +29,8 @@ $(document).ready(function () {
 
             $("#gif-favorites").append(favsImg)
         }
+
+        
     }
 
     $("#add-keyword").click(function () {
@@ -52,7 +54,7 @@ $(document).ready(function () {
 
             for (var i = 0; i < gifArray.length; i++) {
                 var gifDiv = $("<div>");
-                gifDiv.addClass("card btn-space")
+                gifDiv.addClass("card btn-space mx-auto")
                 gifDiv.attr("style", "width: 20em")
                 var gifDivBody = $("<div>")
                 gifDivBody.addClass("card-body")
@@ -104,6 +106,13 @@ $(document).ready(function () {
         favs.push(favImg);
         renderFavs(favs);
         localStorage.setItem("favs-array", JSON.stringify(favs));
+    })
+
+    $("#clearFavs").click(function(){
+        localStorage.removeItem("favs-array")
+        renderFavs(favs)
+        favs =[]
+        $("#gif-favorites").empty();
     })
 
     $(document).on("click", "img.gif", function () {
