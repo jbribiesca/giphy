@@ -18,6 +18,19 @@ $(document).ready(function () {
 
     createBtns();
 
+    function renderFavs(favs){
+        $("#gif-favorites").empty();
+
+        for (var i = 0; i < favs.length; i++) {
+            var favsImg = $("<img>")
+            favsImg.attr("src", favs[i]);
+            favsImg.attr("style", "width: 150px; height: 150px")
+            favsImg.addClass("btn-space")
+
+            $("#gif-favorites").append(favsImg)
+        }
+    }
+
     $("#add-keyword").click(function () {
         var keywordPush = $("#keyword-term").val();
         topics.push(keywordPush);
@@ -58,10 +71,6 @@ $(document).ready(function () {
                 downloadBtn.attr("href", originalDownload);
                 downloadBtn.attr("download", "giphy.gif");
                 downloadBtn.addClass("btn btn-primary btn-space");
-
-                var heartSpan = $("<i>");
-                heartSpan.addClass("fa fa-heart");
-                heartSpan.attr("aria-hidden", "true")
             
                 var gifAnimate = gifArray[i].images.fixed_height.url
                 var gifStill = gifArray[i].images.fixed_height_still.url
@@ -72,6 +81,11 @@ $(document).ready(function () {
                 gifImage.attr("data-state", "still")
                 gifImage.addClass("card-img-top gif")
 
+                var heartSpan = $("<i>");
+                heartSpan.addClass("fa fa-heart");
+                heartSpan.attr("aria-hidden", "true")
+                heartSpan.attr("span-image", gifAnimate)
+
                 gifDiv.append(gifImage);
                 gifDiv.append(gifDivBody);
                 gifDivBody.append(title);
@@ -80,8 +94,16 @@ $(document).ready(function () {
                 gifDivBody.append(heartSpan)
 
                 $("#gif-body").prepend(gifDiv);
+
             }
         });
+    })
+
+    $(document).on("click", ".fa", function(){
+        var favImg = $(this).attr("span-image");
+        favs.push(favImg);
+        renderFavs(favs);
+        localStorage.setItem("favs-array", JSON.stringify(favs));
     })
 
     $(document).on("click", "img.gif", function () {
@@ -95,4 +117,13 @@ $(document).ready(function () {
             $(this).attr("data-state", "still")
         }
     })
+
+    var favs = JSON.parse(localStorage.getItem("favs-array"));
+    if (!Array.isArray(favs)) {
+        favs = [];
+      }
+    
+    renderFavs(favs);
+    
+
 });
