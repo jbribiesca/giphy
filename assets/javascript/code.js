@@ -18,7 +18,7 @@ $(document).ready(function () {
 
     createBtns();
 
-    function renderFavs(favs){
+    function renderFavs(favs) {
         $("#gif-favorites").empty();
 
         for (var i = 0; i < favs.length; i++) {
@@ -29,8 +29,6 @@ $(document).ready(function () {
 
             $("#gif-favorites").append(favsImg)
         }
-
-        
     }
 
     $("#add-keyword").click(function () {
@@ -73,7 +71,7 @@ $(document).ready(function () {
                 downloadBtn.attr("href", originalDownload);
                 downloadBtn.attr("download", "giphy.gif");
                 downloadBtn.addClass("btn btn-primary btn-space");
-            
+
                 var gifAnimate = gifArray[i].images.fixed_height.url
                 var gifStill = gifArray[i].images.fixed_height_still.url
                 var gifImage = $("<img>");
@@ -101,17 +99,17 @@ $(document).ready(function () {
         });
     })
 
-    $(document).on("click", ".fa", function(){
+    $(document).on("click", ".fa", function () {
         var favImg = $(this).attr("span-image");
         favs.push(favImg);
         renderFavs(favs);
         localStorage.setItem("favs-array", JSON.stringify(favs));
     })
 
-    $("#clearFavs").click(function(){
+    $("#clearFavs").click(function () {
         localStorage.removeItem("favs-array")
         renderFavs(favs)
-        favs =[]
+        favs = []
         $("#gif-favorites").empty();
     })
 
@@ -130,9 +128,9 @@ $(document).ready(function () {
     var favs = JSON.parse(localStorage.getItem("favs-array"));
     if (!Array.isArray(favs)) {
         favs = [];
-      }
-    
+    }
+
     renderFavs(favs);
-    
+
 
 });
